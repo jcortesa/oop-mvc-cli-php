@@ -1,0 +1,36 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  php:
+    image: php:8.3-fpm # @TODO Update to the latest CLI stable version when available
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      - DATABASE_HOST=mysql
+      - DATABASE_USER=app_user
+      - DATABASE_PASSWORD=app_password
+      - DATABASE_NAME=vehicles_db
+    depends_on:
+      - mysql
+    stdin_open: true  # Enables STDIN
+    tty: true        # Allocates a pseudo-TTY
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_DATABASE=vehicles_db
+      - MYSQL_USER=app_user
+      - MYSQL_PASSWORD=app_password
+      - MYSQL_ROOT_PASSWORD=root_password
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mysql_data:

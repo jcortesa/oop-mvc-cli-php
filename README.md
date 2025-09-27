@@ -7,6 +7,19 @@ The application allows searching vehicles (cars and motorbikes) by the **first t
 
 ---
 
+## 🚀 Running the Application
+
+### Using Docker
+
+1. Make sure Docker and Docker Compose are installed
+2. Clone this repository
+3. Run the application:
+```bash
+docker compose run php php src/cli.php abc
+```
+
+---
+
 ## 📂 Project Structure
 
 ```
