@@ -1,12 +1,12 @@
 -- =======================================
--- Database: vehicle_catalog
+-- Database: vehicles_db
 -- =======================================
 
-CREATE DATABASE IF NOT EXISTS vehicle_catalog
+CREATE DATABASE IF NOT EXISTS vehicles_db
   DEFAULT CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
 
-USE vehicle_catalog;
+USE vehicles_db;
 
 -- ==============================
 -- Locations

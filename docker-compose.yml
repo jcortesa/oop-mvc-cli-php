@@ -3,7 +3,9 @@ version: '3.8'
 
 services:
   php:
-    image: php:8.3-fpm # @TODO Update to the latest CLI stable version when available
+    build:
+        context: .
+        dockerfile: Dockerfile
     volumes:
       - .:/app
     working_dir: /app
@@ -13,21 +15,29 @@ services:
       - DATABASE_PASSWORD=app_password
       - DATABASE_NAME=vehicles_db
     depends_on:
-      - mysql
+      mysql:
+          condition: service_healthy
     stdin_open: true  # Enables STDIN
     tty: true        # Allocates a pseudo-TTY
+    command: bash -c "docker-php-ext-install pdo_mysql"
 
   mysql:
     image: mysql:8.0
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
     environment:
       - MYSQL_DATABASE=vehicles_db
       - MYSQL_USER=app_user
       - MYSQL_PASSWORD=app_password
       - MYSQL_ROOT_PASSWORD=root_password
+      - MYSQL_CHARSET=utf8mb4
+      - MYSQL_COLLATION=utf8mb4_unicode_ci
     volumes:
       - ./sql:/docker-entrypoint-initdb.d
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
       interval: 5s
       timeout: 5s
       retries: 5
