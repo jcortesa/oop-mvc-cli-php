@@ -1,0 +1,39 @@
+@startuml
+
+entity "locations" as L {
+  *id : INT <<PK>>
+  --
+  city : VARCHAR(100)
+  state : VARCHAR(100)
+}
+
+entity "vehicles" as V {
+  *id : INT <<PK>>
+  --
+  name : VARCHAR(150)
+  type : ENUM('car','motorbike')
+  location_id : INT <<FK>>
+}
+
+entity "cars" as C {
+  *id : INT <<PK>>
+  --
+  vehicle_id : INT <<FK, UNIQUE>>
+  doors : TINYINT
+  fuel : ENUM('gasoline','diesel','electric','hybrid')
+}
+
+entity "motorbikes" as M {
+  *id : INT <<PK>>
+  --
+  vehicle_id : INT <<FK, UNIQUE>>
+  engine_cc : INT
+  has_trunk : BOOLEAN
+}
+
+' Relationships
+L ||--o{ V : "has many"
+V ||--|| C : "is car"
+V ||--|| M : "is motorbike"
+
+@enduml
