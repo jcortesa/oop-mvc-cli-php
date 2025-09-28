@@ -29,6 +29,8 @@ final class VehicleRepository {
      */
     public function getVehiclesByNameFilter(string $nameFilter): array
     {
+        $results = [];
+
         try {
             $stmt = $this->pdo->prepare(<<<EOF
                 SELECT vehicles.name, locations.city, locations.state, 
