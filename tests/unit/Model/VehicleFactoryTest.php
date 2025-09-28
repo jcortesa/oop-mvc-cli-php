@@ -38,7 +38,7 @@ final class VehicleFactoryTest extends TestCase
         $data = [
             'type' => 'motorbike',
             'name' => 'Harley Davidson',
-            'cc' => 750,
+            'engine_cc' => 750,
             'has_trunk' => true,
         ];
 
