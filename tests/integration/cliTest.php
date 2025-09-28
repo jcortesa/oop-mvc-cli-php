@@ -11,10 +11,10 @@ final class cliTest extends TestCase
     {
         $expected =  <<<'EOF'
 Blue Car, 5 doors, gasoline, Valencia, Valencia
-Speedy Bike, 600cc, has trunk, Almeria, Almeria
-Red Car, 3 doors, electric, Mojacar, Almeria
-Vintage Bike, 125cc, has no trunk, Sanlucar, Cadiz
-Family Car, 5 doors, diesel, Malaga, Malaga
+Speedy Bike, 600cc, has trunk, Almería, Almería
+Red Car, 3 doors, electric, Mojácar, Almería
+Vintage Bike, 125cc, has no trunk, Sanlúcar, Cadiz
+Family Car, 5 doors, diesel, Málaga, Málaga
 فان الأزرق, 4 doors, gasoline, Dubai, United Arab Emirates
 北京极速, 600cc, has trunk, Beijing, China
 東京スポーツカー, 2 doors, electric, Tokyo, Japan
@@ -32,10 +32,10 @@ EOF;
     {
         $expected =  <<<'EOF'
 Blue Car, 5 doors, gasoline, Valencia, Valencia
-Speedy Bike, 600cc, has trunk, Almeria, Almeria
-Red Car, 3 doors, electric, Mojacar, Almeria
-Vintage Bike, 125cc, has no trunk, Sanlucar, Cadiz
-Family Car, 5 doors, diesel, Malaga, Malaga
+Speedy Bike, 600cc, has trunk, Almería, Almería
+Red Car, 3 doors, electric, Mojácar, Almería
+Vintage Bike, 125cc, has no trunk, Sanlúcar, Cadiz
+Family Car, 5 doors, diesel, Málaga, Málaga
 فان الأزرق, 4 doors, gasoline, Dubai, United Arab Emirates
 北京极速, 600cc, has trunk, Beijing, China
 東京スポーツカー, 2 doors, electric, Tokyo, Japan
@@ -53,8 +53,8 @@ EOF;
     {
         $expected =  <<<'EOF'
 Blue Car, 5 doors, gasoline, Valencia, Valencia
-Red Car, 3 doors, electric, Mojacar, Almeria
-Family Car, 5 doors, diesel, Malaga, Malaga
+Red Car, 3 doors, electric, Mojácar, Almería
+Family Car, 5 doors, diesel, Málaga, Málaga
 
 EOF;
 
@@ -67,8 +67,8 @@ EOF;
     {
         $expected =  <<<'EOF'
 Blue Car, 5 doors, gasoline, Valencia, Valencia
-Red Car, 3 doors, electric, Mojacar, Almeria
-Family Car, 5 doors, diesel, Malaga, Malaga
+Red Car, 3 doors, electric, Mojácar, Almería
+Family Car, 5 doors, diesel, Málaga, Málaga
 
 EOF;
 
@@ -92,7 +92,7 @@ EOF;
     public function testWhenFilterResultsOnSpeedyStringThenReturnsSpeResultsFormatedAsExpected(): void
     {
         $expected =  <<<'EOF'
-Speedy Bike, 600cc, has trunk, Almeria, Almeria
+Speedy Bike, 600cc, has trunk, Almería, Almería
 
 EOF;
 
@@ -104,7 +104,7 @@ EOF;
     public function testWhenFilterResultsOnVintageStringThenReturnsVinResultsFormatedAsExpected(): void
     {
         $expected =  <<<'EOF'
-Vintage Bike, 125cc, has no trunk, Sanlucar, Cadiz
+Vintage Bike, 125cc, has no trunk, Sanlúcar, Cadiz
 
 EOF;
 

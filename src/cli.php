@@ -10,6 +10,7 @@ mb_internal_encoding('UTF-8');
 ini_set('default_charset', 'UTF-8');
 
 try {
+    // @TODO sepparate db connection configuration from code
     $dsn = sprintf("mysql:host=%s;dbname=%s;charset=utf8mb4",
         getenv('DATABASE_HOST') ?: 'localhost',
         getenv('DATABASE_NAME')
@@ -18,7 +19,10 @@ try {
     $pdo = new PDO($dsn, getenv('DATABASE_USER'), getenv('DATABASE_PASSWORD'));
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+    // @TODO use prepared statements to avoid SQL injection
     $nameFilter = substr($argv[1] ?? '', 0, 3);
+
+    // @TODO sepparate query into a repository class
     $stmt = $pdo->query(<<<EOF
 SELECT vehicles.name, locations.city, locations.state, cars.doors, cars.fuel, motorbikes.engine_cc, motorbikes.has_trunk
 FROM vehicles 
@@ -30,6 +34,7 @@ EOF
 );
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+    // @TODO sepparate presentation code
     foreach ($results as $row) {
         $detail1 = isset($row['doors']) ? "{$row['doors']} doors" : "{$row['engine_cc']}cc";
         $detail2 = isset($row['fuel']) ? "{$row['fuel']}" : (1 === $row['has_trunk'] ? "has trunk" : "has no trunk");
@@ -37,5 +42,6 @@ EOF
         echo "{$row['name']}, {$detail1}, {$detail2}, {$row['city']}, {$row['state']}\n";
     }
 } catch (PDOException $e) {
+    // @TODO handle errors more gracefully
     die("Connection failed: " . $e->getMessage());
 }

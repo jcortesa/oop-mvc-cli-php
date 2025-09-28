@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     locales \
     && rm -rf /var/lib/apt/lists/* \
-    && sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen \
+    && sed -i '/es_ES.UTF-8/s/^# //g' /etc/locale.gen \
     && locale-gen
 
 # Install Composer
