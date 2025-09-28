@@ -37,7 +37,7 @@ docker compose run php php -v
 
 Search vehicles by entering the first three letters:
 ```bash
-docker compose run php php src/index.php abc
+docker compose run php php src/Index.php abc
 ```
 
 ### Running Tests

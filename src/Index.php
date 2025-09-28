@@ -5,6 +5,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Controller\SearchTermValidator;
 use App\Controller\VehicleController;
+use App\Infrastructure\Logger;
 use App\Model\VehicleFactory;
 use App\Model\VehicleRepository;
 use App\View\ConsoleView;
@@ -21,7 +22,8 @@ $factory = new VehicleFactory();
 $repository = new VehicleRepository($pdo, $factory);
 $view = new ConsoleView();
 $searchTermValidator = new SearchTermValidator();
-$controller = new VehicleController($repository, $view, $searchTermValidator);
+$logger = new Logger();
+$controller = new VehicleController($repository, $view, $searchTermValidator, $logger);
 
 $prefix = substr($argv[1] ?? '', 0, INPUT_CHARS_LIMIT);
 $controller->search($prefix);
