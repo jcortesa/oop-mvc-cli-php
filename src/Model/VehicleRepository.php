@@ -19,7 +19,7 @@ use PDOException;
  *     has_trunk: string|null,
  * }
  */
-final class VehicleRepository {
+class VehicleRepository {
     public function __construct(private PDO $pdo, private VehicleFactory $vehicleFactory)
     {
     }

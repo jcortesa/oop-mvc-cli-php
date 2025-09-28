@@ -4,15 +4,19 @@ declare(strict_types=1);
 
 namespace App\Infrastructure;
 
-final class Logger
+final class Logger implements LoggerInterface
 {
-    private const LOG_PATH = __DIR__ . '/../../logs/';
-    private const ERROR_LOG = 'error.log';
+    private const string LOG_PATH = __DIR__ . '/../../logs/';
+    private const string ERROR_LOG = 'error.log';
 
     public function __construct()
     {
-        if (!is_dir(self::LOG_PATH)) {
-            mkdir(self::LOG_PATH, 0755, true);
+        if (
+            !is_dir(self::LOG_PATH) &&
+            !mkdir($concurrentDirectory = self::LOG_PATH, 0755, true) &&
+            !is_dir($concurrentDirectory)
+        ) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
         }
     }
 
