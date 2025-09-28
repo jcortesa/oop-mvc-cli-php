@@ -9,4 +9,6 @@ abstract readonly class Vehicle
     public function __construct(public string $name, public Location $location)
     {
     }
+
+    abstract public function description(): string;
 }

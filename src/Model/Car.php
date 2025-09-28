@@ -10,4 +10,9 @@ readonly class Car extends Vehicle
     {
         parent::__construct($name, $location);
     }
+
+    public function description(): string
+    {
+        return "{$this->name}, {$this->doors} doors, {$this->fuel}, {$this->location->city}, {$this->location->state}";
+    }
 }

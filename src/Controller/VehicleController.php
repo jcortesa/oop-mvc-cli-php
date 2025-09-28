@@ -21,15 +21,7 @@ final class VehicleController
 
         // @TODO separate presentation code
         foreach ($vehicles as $vehicle) {
-            if ($vehicle instanceof \App\Model\Car) {
-                $detail1 = "{$vehicle->doors} doors";
-                $detail2 = $vehicle->fuel;
-            } else {
-                $detail1 = "{$vehicle->engineCc}cc";
-                $detail2 = $vehicle->hasTrunk ? 'has trunk' : 'has no trunk';
-            }
-
-            echo "$vehicle->name, {$detail1}, {$detail2}, {$vehicle->location->city}, {$vehicle->location->state}\n";
+            echo "{$vehicle->description()}\n";
         }
     }
 }
