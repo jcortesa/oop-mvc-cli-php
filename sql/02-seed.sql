@@ -7,6 +7,7 @@
 -- ==============================
 INSERT INTO locations (city, state) VALUES
 ('Valencia', 'Valencia'),         -- Latin
+-- @TODO fix the accents in the next entries
 ('Almeria', 'Almeria'),           -- Latin
 ('Mojacar', 'Almeria'),           -- Latin
 ('Sanlucar', 'Cadiz'),            -- Latin
