@@ -7,19 +7,19 @@ use PHPUnit\Framework\TestCase;
 
 final class IndexTest extends TestCase
 {
-    public function testWhenFilterResultsOnNoStringThenReturnsAllResults(): void
+    public function testWhenFilterResultsOnNoStringThenReturnsAllResultsSortedByName(): void
     {
         $expected =  <<<'EOF'
 Blue Car, 5 doors, gasoline, Valencia, Valencia
-Speedy Bike, 600cc, has trunk, Almería, Almería
-Red Car, 3 doors, electric, Mojácar, Almería
-Vintage Bike, 125cc, has no trunk, Sanlúcar, Cadiz
 Family Car, 5 doors, diesel, Málaga, Málaga
+Red Car, 3 doors, electric, Mojácar, Almería
+Speedy Bike, 600cc, has trunk, Almería, Almería
+Vintage Bike, 125cc, has no trunk, Sanlúcar, Cadiz
 فان الأزرق, 4 doors, gasoline, Dubai, United Arab Emirates
+ताज परिवार, 4 doors, diesel, Mumbai, India
 北京极速, 600cc, has trunk, Beijing, China
 東京スポーツカー, 2 doors, electric, Tokyo, Japan
 서울 스쿠터, 125cc, has no trunk, Seoul, South Korea
-ताज परिवार, 4 doors, diesel, Mumbai, India
 
 EOF;
 
@@ -28,19 +28,19 @@ EOF;
         self::assertEquals($expected, $output);
     }
 
-    public function testWhenFilterResultsOnEmptyStringThenReturnsAllResults(): void
+    public function testWhenFilterResultsOnEmptyStringThenReturnsAllResultsSortedByName(): void
     {
         $expected =  <<<'EOF'
 Blue Car, 5 doors, gasoline, Valencia, Valencia
-Speedy Bike, 600cc, has trunk, Almería, Almería
-Red Car, 3 doors, electric, Mojácar, Almería
-Vintage Bike, 125cc, has no trunk, Sanlúcar, Cadiz
 Family Car, 5 doors, diesel, Málaga, Málaga
+Red Car, 3 doors, electric, Mojácar, Almería
+Speedy Bike, 600cc, has trunk, Almería, Almería
+Vintage Bike, 125cc, has no trunk, Sanlúcar, Cadiz
 فان الأزرق, 4 doors, gasoline, Dubai, United Arab Emirates
+ताज परिवार, 4 doors, diesel, Mumbai, India
 北京极速, 600cc, has trunk, Beijing, China
 東京スポーツカー, 2 doors, electric, Tokyo, Japan
 서울 스쿠터, 125cc, has no trunk, Seoul, South Korea
-ताज परिवार, 4 doors, diesel, Mumbai, India
 
 EOF;
 
@@ -53,8 +53,8 @@ EOF;
     {
         $expected =  <<<'EOF'
 Blue Car, 5 doors, gasoline, Valencia, Valencia
-Red Car, 3 doors, electric, Mojácar, Almería
 Family Car, 5 doors, diesel, Málaga, Málaga
+Red Car, 3 doors, electric, Mojácar, Almería
 
 EOF;
 
@@ -67,8 +67,8 @@ EOF;
     {
         $expected =  <<<'EOF'
 Blue Car, 5 doors, gasoline, Valencia, Valencia
-Red Car, 3 doors, electric, Mojácar, Almería
 Family Car, 5 doors, diesel, Málaga, Málaga
+Red Car, 3 doors, electric, Mojácar, Almería
 
 EOF;
 

@@ -41,6 +41,7 @@ class VehicleRepository {
                 LEFT JOIN motorbikes ON motorbikes.vehicle_id = vehicles.id
                 INNER JOIN locations ON locations.id = vehicles.location_id
                 WHERE vehicles.NAME LIKE :nameFilter
+                ORDER BY vehicles.name ASC
             EOF);
 
             $stmt->execute(['nameFilter' => '%'.$nameFilter.'%']);
