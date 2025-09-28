@@ -1,4 +1,4 @@
-FROM php:8.3-fpm
+FROM php:8.4-cli
 
 # Install required packages and locales
 RUN apt-get update && apt-get install -y \
