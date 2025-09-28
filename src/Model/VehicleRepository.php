@@ -20,6 +20,8 @@ use PDOException;
  * }
  */
 class VehicleRepository {
+    private const int MAX_RESULTS = 100;
+
     public function __construct(private PDO $pdo, private VehicleFactory $vehicleFactory)
     {
     }
@@ -42,9 +44,14 @@ class VehicleRepository {
                 INNER JOIN locations ON locations.id = vehicles.location_id
                 WHERE vehicles.NAME LIKE :nameFilter
                 ORDER BY vehicles.name ASC
+                LIMIT :limit
             EOF);
 
-            $stmt->execute(['nameFilter' => '%'.$nameFilter.'%']);
+            $nameFilter = "%$nameFilter%";
+            $limit = self::MAX_RESULTS; // Workaround for PDO::PARAM_INT with LIMIT
+            $stmt->bindParam(':nameFilter', $nameFilter, PDO::PARAM_STR);
+            $stmt->bindParam(':limit',$limit, PDO::PARAM_INT);
+            $stmt->execute();
 
             /** @var list<VehicleDatum> $rows */
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
