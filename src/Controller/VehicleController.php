@@ -30,8 +30,10 @@ final readonly class VehicleController
             return;
         }
 
+        $sanitizedFilter = htmlspecialchars($validatedFilter, ENT_QUOTES, 'UTF-8');
+
         try {
-            $vehicles = $this->vehicleRepository->getVehiclesByNameFilter($validatedFilter);
+            $vehicles = $this->vehicleRepository->getVehiclesByNameFilter($sanitizedFilter);
         } catch (VehicleRepositoryException $e) {
             $this->logger->error($e);
             echo 'An error occurred while fetching vehicles. Please try again later.'.PHP_EOL;
