@@ -21,11 +21,20 @@ run:
 test:
 	docker compose run php ./vendor/bin/phpunit --display-warnings --configuration phpunit.xml
 
+test-unit:
+	docker compose run php ./vendor/bin/phpunit --display-warnings --configuration phpunit.xml tests/unit
+
+test-integration:
+	docker compose run php ./vendor/bin/phpunit --display-warnings --configuration phpunit.xml tests/integration
+
+test-performance:
+	docker compose run php ./vendor/bin/phpunit --display-warnings --configuration phpunit.xml tests/performance
+
 up:
 	docker compose up -d
 
 down:
-	docker compose down
+	docker compose down --remove-orphans
 
 # Default target
 .DEFAULT_GOAL := help

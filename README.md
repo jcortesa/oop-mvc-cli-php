@@ -44,18 +44,28 @@ docker compose run php php src/Index.php abc
 
 Run all tests with PHPUnit:
 ```bash
-docker compose run php ./vendor/bin/phpunit
+make test
 ```
 
-Run specific test suite:
+Run only unit tests:
 ```bash
-docker compose run php ./vendor/bin/phpunit --testsuite unit
+make test-unit
 ```
 
-Run tests with coverage report:
+Run only integration tests:
 ```bash
-docker compose run php ./vendor/bin/phpunit --coverage-text
+make test-integration
 ```
+
+Run only performance tests:
+```bash
+make test-performance
+```
+
+#### Test Types
+- **Unit tests** (`tests/unit/`): Test individual components in isolation, without external dependencies.
+- **Integration tests** (`tests/integration/`): Test interactions between components and with external systems (e.g., database).
+- **Performance tests** (`tests/performance/`): Measure speed and resource usage under large datasets or heavy load.
 
 The tests follow the same structure as the source code under the `/tests` directory.
 
