@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\View;
 
+use App\Model\Vehicle;
+
 final class ConsoleView {
     /**
      * @param list<Vehicle> $vehicles
