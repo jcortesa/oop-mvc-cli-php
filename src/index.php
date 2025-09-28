@@ -4,6 +4,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Controller\VehicleController;
+use App\Model\VehicleFactory;
 use App\Model\VehicleRepository;
 use App\View\ConsoleView;
 
@@ -15,7 +16,8 @@ $pdo = new PDO(
     getenv('DATABASE_PASSWORD')
 );
 
-$repository = new VehicleRepository($pdo);
+$factory = new VehicleFactory();
+$repository = new VehicleRepository($pdo, $factory);
 $view = new ConsoleView();
 $controller = new VehicleController($repository, $view);
 

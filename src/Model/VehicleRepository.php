@@ -7,8 +7,20 @@ namespace App\Model;
 use PDO;
 use PDOException;
 
+/**
+ * @phpstan-type VehicleDatum array{
+ *     name: string,
+ *     city: string,
+ *     state: string,
+ *     type: string,
+ *     doors: string|null,
+ *     fuel: string|null,
+ *     engine_cc: string|null,
+ *     has_trunk: string|null,
+ * }
+ */
 final class VehicleRepository {
-    public function __construct(private PDO $pdo)
+    public function __construct(private PDO $pdo, private VehicleFactory $vehicleFactory)
     {
     }
 
@@ -33,29 +45,14 @@ final class VehicleRepository {
             );
 
             /**
-             * @var array{
-             *     name: string,
-             *     city: string,
-             *     state: string,
-             *     type: string,
-             *     doors: string|null,
-             *     fuel: string|null,
-             *     engine_cc: string|null,
-             *     has_trunk: string|null,
-             * } $rows
+             * @var list<VehicleDatum> $rows
              */
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             foreach ($rows as $row) {
                 $location = new Location($row['city'], $row['state']);
 
-                // @TODO make this if more manageable in the event of more vehicle types
-                if ('car' === $row['type']) {
-                    $results[] = new Car($row['name'], $location, (int)$row['doors'], $row['fuel']);
-                } else {
-                    $results[] = new Motorbike($row['name'], $location, (int)$row['engine_cc'], (bool)$row['has_trunk']);
-                }
-
+                $results[] = $this->vehicleFactory->createVehicle($row, $location);
             }
 
             return $results;
