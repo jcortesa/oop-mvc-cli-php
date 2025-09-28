@@ -32,6 +32,18 @@ class VehicleRepository {
             EOF
             );
 
+            /**
+             * @var array{
+             *     name: string,
+             *     city: string,
+             *     state: string,
+             *     type: string,
+             *     doors: string|null,
+             *     fuel: string|null,
+             *     engine_cc: string|null,
+             *     has_trunk: string|null,
+             * } $rows
+             */
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             foreach ($rows as $row) {
