@@ -72,7 +72,7 @@ final class VehicleControllerTest extends TestCase
         $vehicleController->search('ter');
         $output = ob_get_clean();
 
-        self::assertSame('', $output);
+        self::assertSame('No vehicles found matching the search criteria.'.PHP_EOL, $output);
     }
 
     public function testWhenSearchOnValidTermAndResultsThenRendersResults(): void

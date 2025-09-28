@@ -41,6 +41,12 @@ final readonly class VehicleController
             return;
         }
 
+        if ([] === $vehicles) {
+            echo 'No vehicles found matching the search criteria.'.PHP_EOL;
+
+            return;
+        }
+
         $this->consoleView->render($vehicles);
     }
 }
