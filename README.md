@@ -1,6 +1,6 @@
 # oop-mvc-cli-php
 
-This is a simple **console application** written in **PHP (OOP, layered design)** with a **MySQL database**.  
+This is a simple **console application** written in **PHP (OOP, layered design)** with a **MySQL database**.
 It demonstrates clean code practices, database design, and multilingual support.
 
 The application allows searching vehicles (cars and motorbikes) by the **first three letters of their name**, retrieving detailed information including type-specific attributes and location.
@@ -13,10 +13,51 @@ The application allows searching vehicles (cars and motorbikes) by the **first t
 
 1. Make sure Docker and Docker Compose are installed
 2. Clone this repository
-3. Run the application:
+3. Build and start containers:
+```bash
+docker compose build
+docker compose up -d
+```
+
+### Installation
+
+1. Install PHP dependencies:
+```bash
+docker compose run php composer install
+```
+
+2. Initialize database (schema and seed data will be loaded automatically)
+
+3. Verify installation:
+```bash
+docker compose run php php -v
+```
+
+### Running the Application
+
+Search vehicles by entering the first three letters:
 ```bash
 docker compose run php php src/cli.php abc
 ```
+
+### Running Tests
+
+Run all tests with PHPUnit:
+```bash
+docker compose run php ./vendor/bin/phpunit
+```
+
+Run specific test suite:
+```bash
+docker compose run php ./vendor/bin/phpunit --testsuite unit
+```
+
+Run tests with coverage report:
+```bash
+docker compose run php ./vendor/bin/phpunit --coverage-text
+```
+
+The tests follow the same structure as the source code under the `/tests` directory.
 
 ---
 
@@ -37,7 +78,7 @@ README.md   -> This file
 - Entity-Relationship Diagram (PlantUML): [`/docs/erd.puml`](./docs/erd.puml)
 - Rendered diagram (PNG/SVG) available in the same folder.
 
-Example (if exported to PNG):
+Example:
 
 ![ERD Diagram](./docs/erd.png)
 
@@ -54,4 +95,3 @@ The database and codebase use **UTF-8 (utf8mb4)** to support multiple languages,
 - No external frameworks are used.
 - The project focuses on **OOP principles, layered architecture, and testability**.
 - This repo is a **demo project** intended for portfolio purposes.
-  """
