@@ -42,7 +42,7 @@ class VehicleRepository {
                 LEFT JOIN cars ON cars.vehicle_id = vehicles.id
                 LEFT JOIN motorbikes ON motorbikes.vehicle_id = vehicles.id
                 INNER JOIN locations ON locations.id = vehicles.location_id
-                WHERE vehicles.NAME LIKE :nameFilter
+                WHERE LOWER(vehicles.NAME) LIKE LOWER(:nameFilter)
                 ORDER BY vehicles.name ASC
                 LIMIT :limit
             EOF);

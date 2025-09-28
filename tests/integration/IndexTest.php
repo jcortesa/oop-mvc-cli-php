@@ -112,4 +112,16 @@ EOF;
 
         self::assertEquals($expected, $output);
     }
+
+    public function testWhenFilterResultsOnLowerCaseInputThenReturnsResults(): void
+    {
+        $expected =  <<<'EOF'
+Vintage Bike, 125cc, has no trunk, Sanlúcar, Cadiz
+
+EOF;
+
+        $output = shell_exec('php src/Index.php vintage');
+
+        self::assertEquals($expected, $output);
+    }
 }
