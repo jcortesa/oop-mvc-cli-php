@@ -19,7 +19,7 @@ run:
 	docker compose run php php src/Index.php $(ARGS)
 
 test:
-	docker compose run php ./vendor/bin/phpunit tests
+	docker compose run php ./vendor/bin/phpunit --display-warnings --configuration phpunit.xml
 
 up:
 	docker compose up -d
