@@ -17,7 +17,9 @@ final class VehicleRepositoryTest extends TestCase
     public function testWhenGetVehiclesByNameFilterOnErrorThenThrowsVehicleRepositoryException(): void
     {
         $pdoMock = $this->createMock(\PDO::class);
-        $pdoMock->method('prepare')->willThrowException(new \PDOException('Test exception'));
+        $pdoMock
+            ->method('prepare')
+            ->willThrowException(new \PDOException('Test exception'));
         $vehicleFactory = new VehicleFactory();
         $repository = new VehicleRepository($pdoMock, $vehicleFactory);
 

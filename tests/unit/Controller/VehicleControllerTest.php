@@ -13,6 +13,7 @@ use App\Model\Motorbike;
 use App\Model\VehicleRepository;
 use App\Model\VehicleRepositoryException;
 use App\View\ConsoleView;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -22,14 +23,11 @@ final class VehicleControllerTest extends TestCase
 {
     public function testWhenSearchOnInvalidTermThenErrorIsLoggedAndMessageShown(): void
     {
-        $vehicleRepositoryMock = $this->createMock(VehicleRepository::class);
-        $consoleView = new ConsoleView();
-        $searchTermValidator = new SearchTermValidator();
         $loggerMock = $this->createMock(LoggerInterface::class);
         $loggerMock->expects($this->once())
             ->method('error')
             ->with($this->isInstanceOf(\InvalidArgumentException::class));
-        $vehicleController = new VehicleController($vehicleRepositoryMock, $consoleView, $searchTermValidator, $loggerMock);
+        $vehicleController = $this->generateVehicleController(loggerMock: $loggerMock);
 
         ob_start();
         $vehicleController->search('invalid-term');
@@ -43,13 +41,11 @@ final class VehicleControllerTest extends TestCase
         $vehicleRepositoryMock = $this->createMock(VehicleRepository::class);
         $vehicleRepositoryMock->method('getVehiclesByNameFilter')
             ->willThrowException(VehicleRepositoryException::fromPDOException(new \PDOException()));
-        $consoleView = new ConsoleView();
-        $searchTermValidator = new SearchTermValidator();
         $loggerMock = $this->createMock(LoggerInterface::class);
         $loggerMock->expects($this->once())
             ->method('error')
             ->with($this->isInstanceOf(VehicleRepositoryException::class));
-        $vehicleController = new VehicleController($vehicleRepositoryMock, $consoleView, $searchTermValidator, $loggerMock);
+        $vehicleController = $this->generateVehicleController(vehicleRepositoryMock: $vehicleRepositoryMock, loggerMock: $loggerMock);
 
         ob_start();
         $vehicleController->search('ter');
@@ -63,10 +59,7 @@ final class VehicleControllerTest extends TestCase
         $vehicleRepositoryMock = $this->createMock(VehicleRepository::class);
         $vehicleRepositoryMock->method('getVehiclesByNameFilter')
             ->willReturn([]);
-        $consoleView = new ConsoleView();
-        $searchTermValidator = new SearchTermValidator();
-        $loggerMock = $this->createMock(LoggerInterface::class);
-        $vehicleController = new VehicleController($vehicleRepositoryMock, $consoleView, $searchTermValidator, $loggerMock);
+        $vehicleController = $this->generateVehicleController(vehicleRepositoryMock: $vehicleRepositoryMock);
 
         ob_start();
         $vehicleController->search('ter');
@@ -90,10 +83,7 @@ OUTPUT;
                 new Car('Another Car', new Location('Another City', 'AC'), 2, 'diesel'),
                 new Motorbike('Test Bike', new Location('Bike City', 'BC'), 600, true),
             ]);
-        $consoleView = new ConsoleView();
-        $searchTermValidator = new SearchTermValidator();
-        $loggerMock = $this->createMock(LoggerInterface::class);
-        $vehicleController = new VehicleController($vehicleRepositoryMock, $consoleView, $searchTermValidator, $loggerMock);
+        $vehicleController = $this->generateVehicleController(vehicleRepositoryMock: $vehicleRepositoryMock);
 
         ob_start();
         $vehicleController->search('ter');
@@ -113,15 +103,31 @@ OUTPUT;
             ->willReturn([
                 new Motorbike('北京极速', new Location('Beijing', 'China'), 600, true),
             ]);
-        $consoleView = new ConsoleView();
-        $searchTermValidator = new SearchTermValidator();
-        $loggerMock = $this->createMock(LoggerInterface::class);
-        $vehicleController = new VehicleController($vehicleRepositoryMock, $consoleView, $searchTermValidator, $loggerMock);
+
+        $vehicleController = $this->generateVehicleController(vehicleRepositoryMock: $vehicleRepositoryMock);
 
         ob_start();
         $vehicleController->search('ter');
         $output = ob_get_clean();
 
         self::assertSame($expected, $output);
+    }
+
+    private function generateVehicleController(
+        VehicleRepository|MockObject $vehicleRepositoryMock = null,
+        LoggerInterface|MockObject $loggerMock = null
+    ): VehicleController {
+        if (null === $vehicleRepositoryMock) {
+            $vehicleRepositoryMock = $this->createMock(VehicleRepository::class);
+        }
+
+        if (null === $loggerMock) {
+            $loggerMock = $this->createMock(LoggerInterface::class);
+        }
+
+        $consoleView = new ConsoleView();
+        $searchTermValidator = new SearchTermValidator();
+
+        return new VehicleController($vehicleRepositoryMock, $consoleView, $searchTermValidator, $loggerMock);
     }
 }
