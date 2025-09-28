@@ -36,7 +36,9 @@ final class VehicleControllerTest extends TestCase
         }
 
         // Trigger an invalid search (more than 3 characters)
+        ob_start();
         $controller->search('VerylongSearchTerm');
+        ob_end_clean();
 
         // Assert log file exists and contains error
         self::assertFileExists($logPath);
