@@ -30,9 +30,7 @@ final class VehicleRepository {
     public function getVehiclesByNameFilter(string $nameFilter): array
     {
         try {
-            // @TODO use prepared statements to avoid SQL injection
-
-            $stmt = $this->pdo->query(<<<EOF
+            $stmt = $this->pdo->prepare(<<<EOF
                 SELECT vehicles.name, locations.city, locations.state, 
                        cars.doors, cars.fuel, 
                        motorbikes.engine_cc, motorbikes.has_trunk, vehicles.type
@@ -40,18 +38,16 @@ final class VehicleRepository {
                 LEFT JOIN cars ON cars.vehicle_id = vehicles.id
                 LEFT JOIN motorbikes ON motorbikes.vehicle_id = vehicles.id
                 INNER JOIN locations ON locations.id = vehicles.location_id
-                WHERE vehicles.NAME LIKE '%$nameFilter%'
-            EOF
-            );
+                WHERE vehicles.NAME LIKE :nameFilter
+            EOF);
 
-            /**
-             * @var list<VehicleDatum> $rows
-             */
+            $stmt->execute(['nameFilter' => '%'.$nameFilter.'%']);
+
+            /** @var list<VehicleDatum> $rows */
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             foreach ($rows as $row) {
                 $location = new Location($row['city'], $row['state']);
-
                 $results[] = $this->vehicleFactory->createVehicle($row, $location);
             }
 

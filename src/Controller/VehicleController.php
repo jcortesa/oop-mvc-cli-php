@@ -11,8 +11,6 @@ final class VehicleController
 {
     public function __construct(private VehicleRepository $vehicleRepository, private ConsoleView $consoleView)
     {
-        mb_internal_encoding('UTF-8');
-        ini_set('default_charset', 'UTF-8');
     }
 
     public function search(string $nameFilter): void
