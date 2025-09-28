@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Integration;
+namespace Tests\integration\Controller;
 
 use App\Controller\VehicleController;
 use PHPUnit\Framework\TestCase;

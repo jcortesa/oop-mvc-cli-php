@@ -101,4 +101,27 @@ OUTPUT;
 
         self::assertSame($expected, $output);
     }
+
+    public function testWhenSearchOnValidTermWithSpecialCharsAndResultsThenRendersResults(): void
+    {
+        $expected = <<<OUTPUT
+北京极速, 600cc, has trunk, Beijing, China
+
+OUTPUT;
+        $vehicleRepositoryMock = $this->createMock(VehicleRepository::class);
+        $vehicleRepositoryMock->method('getVehiclesByNameFilter')
+            ->willReturn([
+                new Motorbike('北京极速', new Location('Beijing', 'China'), 600, true),
+            ]);
+        $consoleView = new ConsoleView();
+        $searchTermValidator = new SearchTermValidator();
+        $loggerMock = $this->createMock(LoggerInterface::class);
+        $vehicleController = new VehicleController($vehicleRepositoryMock, $consoleView, $searchTermValidator, $loggerMock);
+
+        ob_start();
+        $vehicleController->search('ter');
+        $output = ob_get_clean();
+
+        self::assertSame($expected, $output);
+    }
 }
