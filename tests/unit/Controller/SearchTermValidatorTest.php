@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\unit\Controller;
 
+use App\Controller\SearchTermValidator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -13,11 +14,19 @@ final class SearchTermValidatorTest extends TestCase
 {
     public function testWhenValidateOnTooLargeTermThenThrowsInvalidArgumentException(): void
     {
-        self::markTestIncomplete('To be implemented');
+        $searchTermValidator = new SearchTermValidator();
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        $searchTermValidator->validate('Too Long Term');
     }
 
     public function testWhenValidateOnNoValidationErrorThenReturnsTerm(): void
     {
-        self::markTestIncomplete('To be implemented');
+        $searchTermValidator = new SearchTermValidator();
+
+        $result = $searchTermValidator->validate('Spe');
+
+        self::assertSame('Spe', $result);
     }
 }
