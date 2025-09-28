@@ -53,8 +53,7 @@ final class VehicleRepository {
 
             return $results;
         } catch (PDOException $e) {
-            // @TODO handle errors more gracefully
-            die("Connection failed: " . $e->getMessage());
+            throw VehicleRepositoryException::fromPDOException($e);
         }
     }
 }
