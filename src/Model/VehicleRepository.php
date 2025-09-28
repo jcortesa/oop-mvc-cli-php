@@ -7,7 +7,7 @@ namespace App\Model;
 use PDO;
 use PDOException;
 
-class VehicleRepository {
+final class VehicleRepository {
     public function __construct(private PDO $pdo)
     {
     }
