@@ -16,7 +16,7 @@ install:
 	docker compose run php composer install
 
 run:
-	docker compose run php php src/cli.php $(ARGS)
+	docker compose run php php src/index.php $(ARGS)
 
 test:
 	docker compose run php ./vendor/bin/phpunit tests

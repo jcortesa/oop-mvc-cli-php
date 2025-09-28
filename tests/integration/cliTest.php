@@ -23,7 +23,7 @@ Family Car, 5 doors, diesel, Málaga, Málaga
 
 EOF;
 
-        $output = shell_exec('php src/cli.php');
+        $output = shell_exec('php src/index.php');
 
         self::assertEquals($expected, $output);
     }
@@ -44,7 +44,7 @@ Family Car, 5 doors, diesel, Málaga, Málaga
 
 EOF;
 
-        $output = shell_exec('php src/cli.php ""');
+        $output = shell_exec('php src/index.php ""');
 
         self::assertEquals($expected, $output);
     }
@@ -58,7 +58,7 @@ Family Car, 5 doors, diesel, Málaga, Málaga
 
 EOF;
 
-        $output = shell_exec('php src/cli.php Car');
+        $output = shell_exec('php src/index.php Car');
 
         self::assertEquals($expected, $output);
     }
@@ -72,7 +72,7 @@ Family Car, 5 doors, diesel, Málaga, Málaga
 
 EOF;
 
-        $output = shell_exec('php src/cli.php Carro');
+        $output = shell_exec('php src/index.php Carro');
 
         self::assertEquals($expected, $output);
     }
@@ -84,7 +84,7 @@ Blue Car, 5 doors, gasoline, Valencia, Valencia
 
 EOF;
 
-        $output = shell_exec('php src/cli.php Blue');
+        $output = shell_exec('php src/index.php Blue');
 
         self::assertEquals($expected, $output);
     }
@@ -96,7 +96,7 @@ Speedy Bike, 600cc, has trunk, Almería, Almería
 
 EOF;
 
-        $output = shell_exec('php src/cli.php Speedy');
+        $output = shell_exec('php src/index.php Speedy');
 
         self::assertEquals($expected, $output);
     }
@@ -108,7 +108,7 @@ Vintage Bike, 125cc, has no trunk, Sanlúcar, Cadiz
 
 EOF;
 
-        $output = shell_exec('php src/cli.php Vintage');
+        $output = shell_exec('php src/index.php Vintage');
 
         self::assertEquals($expected, $output);
     }
