@@ -62,4 +62,18 @@ EOF;
 
         self::assertEquals($expected, $output);
     }
+
+    public function testWhenFilterResultsOnCarroStringThenReturnsCarResults(): void
+    {
+        $expected =  <<<'EOF'
+ID: 1 - Name: Blue Car
+ID: 3 - Name: Red Car
+ID: 5 - Name: Family Car
+
+EOF;
+
+        $output = shell_exec('php src/cli.php Carro');
+
+        self::assertEquals($expected, $output);
+    }
 }
