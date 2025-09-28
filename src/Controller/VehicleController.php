@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Model\VehicleRepository;
+use App\View\ConsoleView;
 
 final class VehicleController
 {
-    public function __construct(private VehicleRepository $vehicleRepository)
+    public function __construct(private VehicleRepository $vehicleRepository, private ConsoleView $consoleView)
     {
         mb_internal_encoding('UTF-8');
         ini_set('default_charset', 'UTF-8');
@@ -19,9 +20,6 @@ final class VehicleController
         // @TODO catch possible exceptions
         $vehicles = $this->vehicleRepository->getVehiclesByNameFilter($nameFilter);
 
-        // @TODO separate presentation code
-        foreach ($vehicles as $vehicle) {
-            echo "{$vehicle->description()}\n";
-        }
+        $this->consoleView->render($vehicles);
     }
 }
