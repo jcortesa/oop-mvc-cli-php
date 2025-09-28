@@ -17,19 +17,19 @@ final class VehicleController
     public function search(string $nameFilter): void
     {
         // @TODO catch possible exceptions
-        $results = $this->vehicleRepository->getVehiclesByNameFilter($nameFilter);
+        $vehicles = $this->vehicleRepository->getVehiclesByNameFilter($nameFilter);
 
         // @TODO separate presentation code
-        foreach ($results as $row) {
-            $detail1 = isset($row['doors'])
-                ? "{$row['doors']} doors"
-                : "{$row['engine_cc']}cc";
+        foreach ($vehicles as $vehicle) {
+            if ($vehicle instanceof \App\Model\Car) {
+                $detail1 = "{$vehicle->doors} doors";
+                $detail2 = $vehicle->fuel;
+            } else {
+                $detail1 = "{$vehicle->engineCc}cc";
+                $detail2 = $vehicle->hasTrunk ? 'has trunk' : 'has no trunk';
+            }
 
-            $detail2 = isset($row['fuel'])
-                ? $row['fuel']
-                : ($row['has_trunk'] === 1 ? "has trunk" : "has no trunk");
-
-            echo "{$row['name']}, {$detail1}, {$detail2}, {$row['city']}, {$row['state']}\n";
+            echo "$vehicle->name, {$detail1}, {$detail2}, {$vehicle->location->city}, {$vehicle->location->state}\n";
         }
     }
 }
