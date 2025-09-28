@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\unit\Model;
 
+use App\Model\Location;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -11,8 +12,11 @@ use PHPUnit\Framework\TestCase;
  */
 final class LocationTest extends TestCase
 {
-    public function testWhenConstructThenReturnsExpectedLocationObject(): void
+    public function testWhenConstructThenReturnsLocationWithExpectedProperties(): void
     {
-        self::markTestIncomplete('To be implemented');
+        $location = new Location('Los Angeles', 'CA');
+
+        self::assertSame('Los Angeles', $location->city);
+        self::assertSame('CA', $location->state);
     }
 }
