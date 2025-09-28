@@ -8,7 +8,7 @@ use PDO;
 use PDOException;
 
 class VehicleRepository {
-    public function __construct()
+    public function __construct(private PDO $pdo)
     {
     }
 
@@ -18,21 +18,9 @@ class VehicleRepository {
     public function getVehiclesByNameFilter(string $nameFilter): array
     {
         try {
-            // @TODO separate db connection configuration from code
-            $dsn = sprintf(
-                "mysql:host=%s;dbname=%s;charset=utf8mb4",
-                getenv('DATABASE_HOST') ?: 'localhost',
-                getenv('DATABASE_NAME')
-            );
-
-            $pdo = new PDO($dsn, getenv('DATABASE_USER'), getenv('DATABASE_PASSWORD'));
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
             // @TODO use prepared statements to avoid SQL injection
-            $nameFilter = substr($nameFilter, 0, 3);
 
-            // @TODO separate query into a repository class
-            $stmt = $pdo->query(<<<EOF
+            $stmt = $this->pdo->query(<<<EOF
                 SELECT vehicles.name, locations.city, locations.state, 
                        cars.doors, cars.fuel, 
                        motorbikes.engine_cc, motorbikes.has_trunk, vehicles.type

@@ -17,6 +17,7 @@ final class VehicleController
 
     public function search(string $nameFilter): void
     {
+        // @TODO validate input
         // @TODO catch possible exceptions
         $vehicles = $this->vehicleRepository->getVehiclesByNameFilter($nameFilter);
 
