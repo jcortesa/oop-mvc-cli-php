@@ -18,7 +18,10 @@ try {
     $pdo = new PDO($dsn, getenv('DATABASE_USER'), getenv('DATABASE_PASSWORD'));
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $stmt = $pdo->query("SELECT * FROM vehicles");
+
+    // @TODO use only 3 first characters to filter
+    $nameFilter = $argv[1] ?? '';
+    $stmt = $pdo->query("SELECT * FROM vehicles WHERE NAME LIKE '%$nameFilter%'");
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($results as $row) {
