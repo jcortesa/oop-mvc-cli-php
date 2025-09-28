@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+use App\Controller\SearchTermValidator;
 use App\Controller\VehicleController;
 use App\Model\VehicleFactory;
 use App\Model\VehicleRepository;
@@ -19,7 +20,8 @@ $pdo = new PDO(
 $factory = new VehicleFactory();
 $repository = new VehicleRepository($pdo, $factory);
 $view = new ConsoleView();
-$controller = new VehicleController($repository, $view);
+$searchTermValidator = new SearchTermValidator();
+$controller = new VehicleController($repository, $view, $searchTermValidator);
 
 $prefix = substr($argv[1] ?? '', 0, INPUT_CHARS_LIMIT);
 $controller->search($prefix);

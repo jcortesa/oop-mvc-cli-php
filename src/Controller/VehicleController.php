@@ -10,15 +10,24 @@ use App\View\ConsoleView;
 
 final class VehicleController
 {
-    public function __construct(private VehicleRepository $vehicleRepository, private ConsoleView $consoleView)
-    {
-    }
+    public function __construct(
+        private VehicleRepository $vehicleRepository,
+        private ConsoleView $consoleView,
+        private SearchTermValidator $searchTermValidator
+    ){}
 
     public function search(string $nameFilter): void
     {
-        // @TODO validate input
         try {
-            $vehicles = $this->vehicleRepository->getVehiclesByNameFilter($nameFilter);
+            $validatedFilter = $this->searchTermValidator->validate($nameFilter);
+        } catch (\InvalidArgumentException) {
+            echo 'Invalid search term. Please use a maximum length of 3 characters.' . PHP_EOL;
+
+            return;
+        }
+
+        try {
+            $vehicles = $this->vehicleRepository->getVehiclesByNameFilter($validatedFilter);
         } catch (VehicleRepositoryException $e) {
             // @TODO log error
             echo 'An error occurred while fetching vehicles. Please try again later.' . PHP_EOL;
